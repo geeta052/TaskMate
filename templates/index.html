@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %} 
+
+{% block body %}
+
+
+<div class="container my-3">
+    <h2>Add a Task</h2>
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Task Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp"> 
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Task Description</label>
+            <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+        
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+</div>
+
+<div class="container my-3">
+    <h2>Your Tasks</h2>
+    
+    {% if allTask|length == 0 %}
+        <div class="alert" role="alert">
+            No Tasks found. Add your first task now!
+        </div>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+                        
+            <tbody>
+                {% for task in allTask %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.desc }}</td>
+                    <td>{{ task.date_created }}</td>
+                    <td>
+                        <a href="/update/{{ task.sno }}" class="btn btn-outline-dark btn-sm mx-1">Update</a>
+                        <a href="/delete/{{ task.sno }}" class="btn btn-outline-dark btn-sm mx-1">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+
+<style>
+  /* Custom styles */
+  body {
+      background-color: #f8f9fa;
+  }
+
+  .navbar {
+      background-color: #343a40;
+  }
+
+  .navbar-brand {
+      color: #fff;
+      font-weight: bold;
+  }
+
+  .btn-dark {
+      background-color: #343a40;
+      color: #fff;
+      transition: all 0.3s ease;
+      animation: pulse 1.5s infinite;
+  }
+
+  .btn-dark:hover {
+      background-color: #23272b;
+  }
+
+  @keyframes pulse {
+      0% {
+          transform: scale(1);
+      }
+      50% {
+          transform: scale(1.1);
+      }
+      100% {
+          transform: scale(1);
+      }
+  }
+
+  .table th {
+      background-color: #343a40;
+      color: #fff;
+  }
+
+  .table td {
+      background-color: #f8f9fa;
+  }
+
+  .btn-outline-dark {
+      color: #343a40;
+      border-color: #343a40;
+      transition: all 0.3s ease;
+  }
+
+  .btn-outline-dark:hover {
+      background-color: #343a40;
+      color: #fff;
+      animation: bounce 0.5s;
+  }
+
+  @keyframes bounce {
+      0% {
+          transform: translateY(0);
+      }
+      25% {
+          transform: translateY(-10px);
+      }
+      50% {
+          transform: translateY(0);
+      }
+      75% {
+          transform: translateY(-5px);
+      }
+      100% {
+          transform: translateY(0);
+      }
+  }
+
+  .alert {
+      background-color: #f8f9fa;
+      color: #343a40;
+      border-color: #343a40;
+  }
+</style>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+-->
+
+{% endblock body %}
